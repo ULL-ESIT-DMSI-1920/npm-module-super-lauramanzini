@@ -1,9 +1,5 @@
 #!/usr/bin/env node
 
-/*
-Aqui ponemos comentarios
-*/
-
 const ins = require("util").inspect;
 
 const shell = require('shelljs');
@@ -54,18 +50,7 @@ if (!shell.which('git')) {
 if (!shell.which('gh')) {
   shell.echo('Sorry, this script requires gh cli');
   shell.exit(1);
-}
-
-/* 
-execute command 
-let r = shell.exec(`gh api -X PATCH /repos/${org}/${repo} -f name=${name}`, {silent: true});
-
-r = JSON.parse(r.stdout);
-
-console.log(`The repo has been renamed to ${r.full_name}`);
-*/
-
-// console.log(getRepoId(org, repo))  // 
+} 
 
 // Ejecuto la primera query
 let r = shell.exec(`gh api graphql -f query='${getRepoId(org, repo)}' --jq '.data.repository.id'`,
