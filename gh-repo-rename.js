@@ -6,6 +6,7 @@ const shell = require('shelljs');
 const { Command } = require('commander');
 const program = new Command();
 const { version } = require("./package.json")
+const { getRepoId, renameRepo } = require('./repo-rename')
 
 program
   .version(version)
@@ -17,25 +18,6 @@ program.parse(process.argv);
 
 let args = program.args;
 debugger;
-
-const getRepoId = (owner, name) => `
-query {
-    repository(owner: "${owner}", name: "${name}"){
-      id
-    }
-  }
- `;
-
-const renameRepo = (id, newName) => `   
-  mutation {
-    updateRepository(input: { name: "${newName}", repositoryId: "${id}" }) {
-      repository{
-        name
-      }
-    }
-  }
-`;
-
 
 let {org , repo, name } = program.opts(); // de esta manera estoy creando ALIAS 
 
@@ -52,33 +34,10 @@ if (!shell.which('gh')) {
   shell.exit(1);
 } 
 
-// Ejecuto la primera query
-let r = shell.exec(`gh api graphql -f query='${getRepoId(org, repo)}' --jq '.data.repository.id'`,
-                  {silent: true}
-                  );
+const ID = getRepoId(org, name);
 
-                  
-if (r.code !== 0) {
-  console.error(r.stderr)
-  process.exit(r.code)
-};
+const newName = renameRepo(ID, name);
 
-console.log("Repository id: ", r.stdout)
-
-// Ejecuto la segunda query
-const ID = r.stdout.replace(/\s+$/g,'');
-
-
-r = shell.exec(`gh api graphql -f query='${renameRepo(ID, name)}' --jq '.data.updateRepository.repository.name'`, 
-              {silent:true}
-              );
-
-
-if (r.code !== 0) {
-  console.error(r.stderr)
-  process.exit(r.code)
-};
-
-console.log(`The repository '${org}/${repo}' has been renamed to '${r.stdout.replace(/\s+$/, '')}'`);
+console.log(`The repository '${org}/${repo}' has been renamed to '${newName}'`);
 
 
