@@ -16,7 +16,6 @@ program
 
 program.parse(process.argv);
 
-let args = program.args;
 debugger;
 
 let {org , repo, name } = program.opts(); // de esta manera estoy creando ALIAS 
