@@ -1,6 +1,6 @@
 {
   "name": "@lauramanzini/gh-repo-rename",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "",
   "main": "gh-repo-rename.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "test": "./gh-repo-rename -o ULL-ESIT-DMSI-1920 -r prueba-laura -n prueba-laura-funciona; npm run list-prueba",
     "back": "./gh-repo-rename  -o ULL-ESIT-DMSI-1920 -r prueba-laura-funciona  -n prueba-laura; npm run list-prueba",
     "start": "node gh-repo-rename.js",
-    "publish" : "git push origin main; git push publico main"
+    "publish": "git push origin main; git push publico main"
   },
   "repository": {
     "type": "git",
