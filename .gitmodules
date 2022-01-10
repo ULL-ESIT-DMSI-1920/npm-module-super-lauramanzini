@@ -1,0 +1,6 @@
+[submodule "npm-module-test-lauramanzini"]
+	path = npm-module-test-lauramanzini
+	url = https://github.com/ULL-ESIT-DMSI-1920/npm-module-test-lauramanzini.git
+[submodule "npm-module-src-lauramanzini"]
+	path = npm-module-src-lauramanzini
+	url = https://github.com/ULL-ESIT-DMSI-1920/npm-module-src-lauramanzini.git
